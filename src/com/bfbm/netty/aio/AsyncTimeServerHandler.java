@@ -28,15 +28,14 @@ public class AsyncTimeServerHandler implements Runnable {
     AsynchronousServerSocketChannel asynchronousServerSocketChannel;
 
     public AsyncTimeServerHandler(int port) {
-	this.port = port;
-	try {
-	    asynchronousServerSocketChannel = AsynchronousServerSocketChannel
-		    .open();
-	    asynchronousServerSocketChannel.bind(new InetSocketAddress(port));
-	    System.out.println("The time server is start in port : " + port);
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
+        this.port = port;
+        try {
+            asynchronousServerSocketChannel = AsynchronousServerSocketChannel.open();
+            asynchronousServerSocketChannel.bind(new InetSocketAddress(port));
+            System.out.println("The time server is start in port : " + port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -47,18 +46,17 @@ public class AsyncTimeServerHandler implements Runnable {
     @Override
     public void run() {
 
-	latch = new CountDownLatch(1);
-	doAccept();
-	try {
-	    latch.await();
-	} catch (InterruptedException e) {
-	    e.printStackTrace();
-	}
+        latch = new CountDownLatch(1);
+        doAccept();
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void doAccept() {
-	asynchronousServerSocketChannel.accept(this,
-		new AcceptCompletionHandler());
+        asynchronousServerSocketChannel.accept(this, new AcceptCompletionHandler());
     }
 
 }
