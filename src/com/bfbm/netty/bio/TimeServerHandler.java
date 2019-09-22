@@ -39,13 +39,14 @@ public class TimeServerHandler implements Runnable {
             String currentTime = null;
             String body = null;
             while (true) {
+                //一直阻塞
                 body = in.readLine();
                 if (body == null)
                     break;
                 System.out.println("The time server receive order : " + body);
                 currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body) ?
                         new java.util.Date(System.currentTimeMillis()).toString() : "BAD ORDER";
-                out.println(currentTime);
+                //out.println(currentTime);
             }
 
         } catch (Exception e) {

@@ -44,7 +44,10 @@ public class MultiplexerTimeServer implements Runnable {
             servChannel = ServerSocketChannel.open();
             servChannel.configureBlocking(false);
             servChannel.socket().bind(new InetSocketAddress(port), 1024);
+
+            //注册OP_ACCEPT
             servChannel.register(selector, SelectionKey.OP_ACCEPT);
+
             System.out.println("The time server is start in port : " + port);
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,23 +111,52 @@ public class MultiplexerTimeServer implements Runnable {
                 // Read the data
                 SocketChannel sc = (SocketChannel) key.channel();
                 ByteBuffer readBuffer = ByteBuffer.allocate(1024);
-                int readBytes = sc.read(readBuffer);
-                if (readBytes > 0) {
-                    readBuffer.flip();
+
+                StringBuffer ss = new StringBuffer();
+
+                int readBytes = sc.read(readBuffer);//把socketChannel中的数据写入 readFBuffer（写入模式）中
+                while (readBytes > 0) {
+                    readBuffer.flip();//把readBuffer 从写的模式 转到 读的模式
+
                     byte[] bytes = new byte[readBuffer.remaining()];
                     readBuffer.get(bytes);
+
                     String body = new String(bytes, "UTF-8");
+                    ss.append(body);
+
+                    readBuffer.rewind();
+                    readBytes = sc.read(readBuffer);//把socketChannel中的数据写入 readFBuffer（写入模式）中
+                }
+
+                System.out.println("The time server receive order : " + ss.toString());
+                String currentTime = ss != null && ss.toString().contains("QUERY TIME ORDER") ? new java.util.Date(System.currentTimeMillis()).toString() : "BAD ORDER";
+
+                doWrite(sc, currentTime);
+
+
+
+                /*if (readBytes > 0) {
+                    //从readBuffer中 分析client传了什么信息
+
+                    readBuffer.flip();//把readBuffer 从写的模式 转到 读的模式
+
+                    byte[] bytes = new byte[readBuffer.remaining()];
+                    readBuffer.get(bytes);
+
+                    String body = new String(bytes, "UTF-8");
+
                     System.out.println("The time server receive order : " + body);
                     String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body.replace("\n", "")) ?
                             new java.util.Date(System.currentTimeMillis()).toString() : "BAD ORDER";
+
                     doWrite(sc, currentTime);
-                    //sc.close();
+                    sc.close();
                 } else if (readBytes < 0) {
                     // 对端链路关闭
                     key.cancel();
                     sc.close();
                 } else
-                    ; // 读到0字节，忽略
+                    ; // 读到0字节，忽略*/
             }
         }
     }
@@ -134,8 +166,10 @@ public class MultiplexerTimeServer implements Runnable {
             byte[] bytes = response.getBytes();
             ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
             writeBuffer.put(bytes);
-            writeBuffer.flip();
-            channel.write(writeBuffer);
+
+            writeBuffer.flip();//writeBuffer 从写的模式 转到 读的模式
+
+            channel.write(writeBuffer); //把writeBuffer中数据读到socketChannel
         }
     }
 }

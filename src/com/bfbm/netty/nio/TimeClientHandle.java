@@ -134,8 +134,10 @@ public class TimeClientHandle implements Runnable {
 
     private void doWrite(SocketChannel sc) throws IOException {
         byte[] req = "QUERY TIME ORDER".getBytes();
-        ByteBuffer writeBuffer = ByteBuffer.allocate(req.length);
-        writeBuffer.put(req);
+        ByteBuffer writeBuffer = ByteBuffer.allocate(req.length * 1024);
+        for (int i = 0; i < 1024; i++) {
+            writeBuffer.put(req);
+        }
         writeBuffer.flip();
         sc.write(writeBuffer);
         if (!writeBuffer.hasRemaining())

@@ -8,28 +8,30 @@ public class ByteBufferTest {
 
         allocate();
 
-        //wrap();
+        wrap();
 
-        //get();
+        get();
 
-        //put();
+        put();
 
-        //flip();
+        flip();
 
-        //reset();
+        reset();
 
-        //rewind();
+        rewind();
 
-        //compact();
+        compact();
 
-        //slice();
+        slice();
     }
 
     private static void compact() {
         ByteBuffer buffer = ByteBuffer.allocate(32);
         System.out.println("\r\n");
         System.out.println("--------------------------Test compact--------------------------");
-        //17. compact() 把从position到limit中的内容移到0到limit-position的区域内，position和limit的取值也分别变成limit-position、capacity。如果先将positon设置到limit，再compact，那么相当于clear()
+        //17. compact() 把从position到limit中的内容移到0到limit-position的区域内，
+        // position和limit的取值也分别变成limit-position、capacity。
+        // 如果先将positon设置到limit，再compact，那么相当于clear()
         buffer = ByteBuffer.allocate(32);
         buffer.clear();
         buffer.put("abcd".getBytes());
@@ -189,12 +191,16 @@ public class ByteBufferTest {
 
         System.out.println("\r\n");
         System.out.println("--------------------------Test wrap------------------------");
-        //3. ByteBuffer.wrap 这个缓冲区的数据会存放在byte数组中，bytes数组或buff缓冲区任何一方中数据的改动都会影响另一方。其实ByteBuffer底层本来就有一个bytes数组负责来保存buffer缓冲区中的数据，通过allocate方法系统会帮你构造一个byte数组
+        //3. ByteBuffer.wrap 这个缓冲区的数据会存放在byte数组中，bytes数组或buff缓冲区任何一方中数据的改动都会影响另一方。
+        // 其实ByteBuffer底层本来就有一个bytes数组负责来保存buffer缓冲区中的数据，通过allocate方法系统会帮你构造一个byte数组
         byte[] bytes = new byte[32];
         buffer = ByteBuffer.wrap(bytes);
         System.out.println(buffer);
 
-        //4. ByteBuffer.wrap(array, offset, length) 在上一个方法的基础上可以指定偏移量和长度，这个offset也就是包装后byteBuffer的position，而length呢就是limit-position的大小，从而我们可以得到limit的位置为length+position(offset)
+        //4. ByteBuffer.wrap(array, offset, length) 在上一个方法的基础上可以指定偏移量和长度，
+        // 这个offset也就是包装后byteBuffer的position，而length呢就是limit-position的大小，
+        // 从而我们可以得到limit的位置为length+position(offset)
+
         buffer = ByteBuffer.wrap(bytes, 10, 10);
         System.out.println(buffer);
     }
