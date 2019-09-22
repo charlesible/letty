@@ -38,14 +38,9 @@ public class AsyncTimeServerHandler implements Runnable {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Runnable#run()
-     */
+
     @Override
     public void run() {
-
         latch = new CountDownLatch(1);
         doAccept();
         try {

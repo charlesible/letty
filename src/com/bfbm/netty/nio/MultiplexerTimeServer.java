@@ -56,11 +56,6 @@ public class MultiplexerTimeServer implements Runnable {
         this.stop = true;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Runnable#run()
-     */
     @Override
     public void run() {
         while (!stop) {
@@ -123,7 +118,7 @@ public class MultiplexerTimeServer implements Runnable {
                     String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body.replace("\n", "")) ?
                             new java.util.Date(System.currentTimeMillis()).toString() : "BAD ORDER";
                     doWrite(sc, currentTime);
-                    sc.close();
+                    //sc.close();
                 } else if (readBytes < 0) {
                     // 对端链路关闭
                     key.cancel();
@@ -134,8 +129,7 @@ public class MultiplexerTimeServer implements Runnable {
         }
     }
 
-    private void doWrite(SocketChannel channel, String response)
-            throws IOException {
+    private void doWrite(SocketChannel channel, String response) throws IOException {
         if (response != null && response.trim().length() > 0) {
             byte[] bytes = response.getBytes();
             ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
