@@ -112,51 +112,40 @@ public class MultiplexerTimeServer implements Runnable {
                 SocketChannel sc = (SocketChannel) key.channel();
                 ByteBuffer readBuffer = ByteBuffer.allocate(1024);
 
-                StringBuffer ss = new StringBuffer();
-
                 int readBytes = sc.read(readBuffer);//把socketChannel中的数据写入 readFBuffer（写入模式）中
-                while (readBytes > 0) {
-                    readBuffer.flip();//把readBuffer 从写的模式 转到 读的模式
-
-                    byte[] bytes = new byte[readBuffer.remaining()];
-                    readBuffer.get(bytes);
-
-                    String body = new String(bytes, "UTF-8");
-                    ss.append(body);
-
-                    readBuffer.rewind();
-                    readBytes = sc.read(readBuffer);//把socketChannel中的数据写入 readFBuffer（写入模式）中
-                }
-
-                System.out.println("The time server receive order : " + ss.toString());
-                String currentTime = ss != null && ss.toString().contains("QUERY TIME ORDER") ? new java.util.Date(System.currentTimeMillis()).toString() : "BAD ORDER";
-
-                doWrite(sc, currentTime);
-
-
-
-                /*if (readBytes > 0) {
+                if (readBytes > 0) {
                     //从readBuffer中 分析client传了什么信息
+                    StringBuffer ss = new StringBuffer();
 
-                    readBuffer.flip();//把readBuffer 从写的模式 转到 读的模式
+                    while (readBytes > 0) {
+                        readBuffer.flip();//把readBuffer 从写的模式 转到 读的模式
 
-                    byte[] bytes = new byte[readBuffer.remaining()];
-                    readBuffer.get(bytes);
+                        byte[] bytes = new byte[readBuffer.remaining()];
+                        readBuffer.get(bytes);
 
-                    String body = new String(bytes, "UTF-8");
+                        String body = new String(bytes, "UTF-8");
+                        ss.append(body);
 
-                    System.out.println("The time server receive order : " + body);
-                    String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body.replace("\n", "")) ?
-                            new java.util.Date(System.currentTimeMillis()).toString() : "BAD ORDER";
+                        readBuffer.rewind();
+                        readBytes = sc.read(readBuffer);//把socketChannel中的数据写入 readFBuffer（写入模式）中
+                    }
+
+                    System.out.println("The time server receive order : " + ss.toString());
+
+                    int count = subStrCount(ss.toString(), "QUERY TIME ORDER");
+                    System.out.println("the count of QUERY TIME ORDER is: " + count);
+
+
+                    String currentTime = ss != null && ss.toString().contains("QUERY TIME ORDER") ? new java.util.Date(System.currentTimeMillis()).toString() : "BAD ORDER";
 
                     doWrite(sc, currentTime);
-                    sc.close();
+
                 } else if (readBytes < 0) {
                     // 对端链路关闭
                     key.cancel();
                     sc.close();
                 } else
-                    ; // 读到0字节，忽略*/
+                    ; // 读到0字节，忽略
             }
         }
     }
@@ -172,4 +161,11 @@ public class MultiplexerTimeServer implements Runnable {
             channel.write(writeBuffer); //把writeBuffer中数据读到socketChannel
         }
     }
+
+    private int subStrCount(String str, String subStr) {
+        int i = str.length() - str.replace(subStr, "").length();
+        int result = i / subStr.length();
+        return result;
+    }
+
 }
