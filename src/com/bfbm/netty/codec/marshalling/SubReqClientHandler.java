@@ -41,7 +41,7 @@ public class SubReqClientHandler extends ChannelHandlerAdapter {
 	req.setPhoneNumber("138xxxxxxxxx");
 	req.setProductName("Netty Book For Marshalling");
 	req.setSubReqID(i);
-	req.setUserName("Lilinfeng");
+	req.setUserName("Charles");
 	return req;
     }
 

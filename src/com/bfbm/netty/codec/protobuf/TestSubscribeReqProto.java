@@ -35,7 +35,7 @@ public class TestSubscribeReqProto {
 	SubscribeReqProto.SubscribeReq.Builder builder = SubscribeReqProto.SubscribeReq
 		.newBuilder();
 	builder.setSubReqID(1);
-	builder.setUserName("Lilinfeng");
+	builder.setUserName("Charles");
 	builder.setProductName("Netty Book");
 	List<String> address = new ArrayList<>();
 	address.add("NanJing YuHuaTai");

@@ -44,7 +44,7 @@ public class TestCodeC {
 	header.setPriority((byte) 7);
 	Map<String, Object> attachment = new HashMap<String, Object>();
 	for (int i = 0; i < 10; i++) {
-	    attachment.put("ciyt --> " + i, "lilinfeng " + i);
+	    attachment.put("ciyt --> " + i, "Charles " + i);
 	}
 	header.setAttachment(attachment);
 	nettyMessage.setHeader(header);

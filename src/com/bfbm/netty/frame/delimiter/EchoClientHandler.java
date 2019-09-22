@@ -23,7 +23,7 @@ public class EchoClientHandler extends ChannelHandlerAdapter {
 
     private int counter;
 
-    static final String ECHO_REQ = "Hi, Lilinfeng. Welcome to Netty.$_";
+    static final String ECHO_REQ = "Hi, Charles. Welcome to Netty.$_";
 
     /**
      * Creates a client-side handler.

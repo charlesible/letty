@@ -42,7 +42,7 @@ public class SubReqClientHandler extends ChannelHandlerAdapter {
 	req.setPhoneNumber("138xxxxxxxxx");
 	req.setProductName("Netty 最佳实践和原理分析");
 	req.setSubReqID(i);
-	req.setUserName("Lilinfeng");
+	req.setUserName("Charles");
 	return req;
     }
 
