@@ -38,7 +38,7 @@ public class TimeServer {
                     .childHandler(new ChildChannelHandler());
             // 绑定端口，同步等待成功
             ChannelFuture f = b.bind(port).sync();
-
+            System.out.println("Start server at port : " + port);
             // 等待服务端监听端口关闭
             f.channel().closeFuture().sync();
         } finally {

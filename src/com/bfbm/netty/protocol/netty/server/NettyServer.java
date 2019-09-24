@@ -40,8 +40,7 @@ public class NettyServer {
 
     public void bind() throws Exception {
         // 配置服务端的NIO线程组
-        System.out.printf("Netty server start ok1 : "
-                + (NettyConstant.REMOTEIP + " : " + NettyConstant.PORT));
+        System.out.printf("Netty server start ok1 : " + (NettyConstant.REMOTEIP + " : " + NettyConstant.PORT));
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         ServerBootstrap b = new ServerBootstrap();
@@ -52,21 +51,17 @@ public class NettyServer {
                     @Override
                     public void initChannel(SocketChannel ch)
                             throws IOException {
-                        ch.pipeline().addLast(
-                                new NettyMessageDecoder(1024 * 1024, 4, 4));
+                        ch.pipeline().addLast(new NettyMessageDecoder(1024 * 1024, 4, 4));
                         ch.pipeline().addLast(new NettyMessageEncoder());
-                        ch.pipeline().addLast("readTimeoutHandler",
-                                new ReadTimeoutHandler(50));
+                        ch.pipeline().addLast("readTimeoutHandler", new ReadTimeoutHandler(50));
                         ch.pipeline().addLast(new LoginAuthRespHandler());
-                        ch.pipeline().addLast("HeartBeatHandler",
-                                new HeartBeatRespHandler());
+                        ch.pipeline().addLast("HeartBeatHandler", new HeartBeatRespHandler());
                     }
                 });
 
         // 绑定端口，同步等待成功
         b.bind(NettyConstant.REMOTEIP, NettyConstant.PORT).sync();
-        System.out.printf("Netty server start ok : "
-                + (NettyConstant.REMOTEIP + " : " + NettyConstant.PORT));
+        System.out.printf("Netty server start ok : " + (NettyConstant.REMOTEIP + " : " + NettyConstant.PORT));
     }
 
     public static void main(String[] args) throws Exception {
