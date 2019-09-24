@@ -681,7 +681,7 @@ public final class SubscribeRespProto {
     java.lang.String[] descriptorData = {
       "\n\031netty/SubscribeResp.proto\022\005netty\"A\n\rSu" +
       "bscribeResp\022\020\n\010subReqID\030\001 \002(\005\022\020\n\010respCod" +
-      "e\030\002 \002(\005\022\014\n\004desc\030\003 \002(\tB3\n\035com.phei.netty." +
+      "e\030\002 \002(\005\022\014\n\004desc\030\003 \002(\tB3\n\035com.bfbm.netty." +
       "codec.protobufB\022SubscribeRespProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

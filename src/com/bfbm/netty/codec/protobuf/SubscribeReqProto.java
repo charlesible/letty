@@ -942,7 +942,7 @@ public final class SubscribeReqProto {
       "\n\030netty/SubscribeReq.proto\022\005netty\"X\n\014Sub" +
       "scribeReq\022\020\n\010subReqID\030\001 \002(\005\022\020\n\010userName\030" +
       "\002 \002(\t\022\023\n\013productName\030\003 \002(\t\022\017\n\007address\030\004 " +
-      "\003(\tB2\n\035com.phei.netty.codec.protobufB\021Su" +
+      "\003(\tB2\n\035com.bfbm.netty.codec.protobufB\021Su" +
       "bscribeReqProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
