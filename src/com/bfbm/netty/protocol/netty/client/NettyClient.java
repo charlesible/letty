@@ -38,8 +38,6 @@ import org.apache.commons.logging.LogFactory;
 
 public class NettyClient {
 
-    private static final Log LOG = LogFactory.getLog(NettyClient.class);
-
     private ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
     EventLoopGroup group = new NioEventLoopGroup();
@@ -54,16 +52,11 @@ public class NettyClient {
                         @Override
                         public void initChannel(SocketChannel ch)
                                 throws Exception {
-                            ch.pipeline().addLast(
-                                    new NettyMessageDecoder(1024 * 1024, 4, 4));
-                            ch.pipeline().addLast("MessageEncoder",
-                                    new NettyMessageEncoder());
-                            ch.pipeline().addLast("readTimeoutHandler",
-                                    new ReadTimeoutHandler(50));
-                            ch.pipeline().addLast("LoginAuthHandler",
-                                    new LoginAuthReqHandler());
-                            ch.pipeline().addLast("HeartBeatHandler",
-                                    new HeartBeatReqHandler());
+                            ch.pipeline().addLast(new NettyMessageDecoder(1024 * 1024, 4, 4));
+                            ch.pipeline().addLast("MessageEncoder", new NettyMessageEncoder());
+                            ch.pipeline().addLast("readTimeoutHandler", new ReadTimeoutHandler(50));
+                            ch.pipeline().addLast("LoginAuthHandler", new LoginAuthReqHandler());
+                            ch.pipeline().addLast("HeartBeatHandler", new HeartBeatReqHandler());
                         }
                     });
             // 发起异步连接操作

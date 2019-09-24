@@ -24,8 +24,7 @@ import java.util.Map;
 
 import com.bfbm.netty.protocol.netty.struct.NettyMessage;
 
-public final class NettyMessageEncoder extends
-        MessageToByteEncoder<NettyMessage> {
+public final class NettyMessageEncoder extends MessageToByteEncoder<NettyMessage> {
 
     MarshallingEncoder marshallingEncoder;
 
@@ -47,8 +46,7 @@ public final class NettyMessageEncoder extends
         String key = null;
         byte[] keyArray = null;
         Object value = null;
-        for (Map.Entry<String, Object> param : msg.getHeader().getAttachment()
-                .entrySet()) {
+        for (Map.Entry<String, Object> param : msg.getHeader().getAttachment().entrySet()) {
             key = param.getKey();
             keyArray = key.getBytes("UTF-8");
             sendBuf.writeInt(keyArray.length);
@@ -61,8 +59,9 @@ public final class NettyMessageEncoder extends
         value = null;
         if (msg.getBody() != null) {
             marshallingEncoder.encode(msg.getBody(), sendBuf);
-        } else
+        } else {
             sendBuf.writeInt(0);
+        }
         sendBuf.setInt(4, sendBuf.readableBytes() - 8);
     }
 }

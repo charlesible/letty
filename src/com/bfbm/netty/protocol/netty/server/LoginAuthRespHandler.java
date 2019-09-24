@@ -38,8 +38,7 @@ public class LoginAuthRespHandler extends ChannelHandlerAdapter {
     private String[] whitekList = {"127.0.0.1", "192.168.1.104"};
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg)
-            throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         NettyMessage message = (NettyMessage) msg;
 
         // 如果是握手请求消息，处理，其它消息透传
