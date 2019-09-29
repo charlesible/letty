@@ -1,9 +1,6 @@
 package com.bfbm.netty.protocol.json.server;
 
-import com.bfbm.netty.protocol.json.protocol.RpcDecoder;
-import com.bfbm.netty.protocol.json.protocol.RpcEncoder;
-import com.bfbm.netty.protocol.json.protocol.RpcRequest;
-import com.bfbm.netty.protocol.json.protocol.RpcResponse;
+import com.bfbm.netty.protocol.json.protocol.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -29,7 +26,8 @@ public class NettyServer {
                     @Override
                     protected void initChannel(SocketChannel sh) throws Exception {
                         sh.pipeline()
-                                .addLast(new RpcDecoder(RpcRequest.class)) //解码request
+                                //.addLast(new RpcDecoder(RpcRequest.class)) //解码request
+                                .addLast(new RpcDecoderByLengthField(RpcRequest.class)) //解码request
                                 .addLast(new RpcEncoder(RpcResponse.class)) //编码response
                                 .addLast(new ServerHandler()); //使用ServerHandler类来处理接收到的消息
                     }

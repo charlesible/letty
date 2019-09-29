@@ -27,7 +27,15 @@ import java.util.Map;
 import com.bfbm.netty.protocol.netty.struct.NettyMessage;
 
 public class NettyMessageDecoder extends LengthFieldBasedFrameDecoder {
-
+    /**
+     *
+     * @param maxFrameLength  帧的最大长度
+     * @param lengthFieldOffset length字段偏移的地址
+     * @param lengthFieldLength length字段所占的字节长
+     * @param lengthAdjustment 修改帧数据长度字段中定义的值，可以为负数 因为有时候我们习惯把头部记入长度,若为负数,则说明要推后多少个字段
+     * @param initialBytesToStrip 解析时候跳过多少个长度
+     * @param failFast 为true，当frame长度超过maxFrameLength时立即报TooLongFrameException异常，为false，读取完整个帧再报异
+     */
     MarshallingDecoder marshallingDecoder;
 
     public NettyMessageDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength) throws IOException {

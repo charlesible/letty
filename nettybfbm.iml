@@ -9,6 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.38" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-all:5.0.0.Alpha1" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-example:5.0.0.Alpha1" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-transport:5.0.0.Alpha1" level="project" />

@@ -110,7 +110,7 @@ public class MultiplexerTimeServer implements Runnable {
             if (key.isReadable()) {
                 // Read the data
                 SocketChannel sc = (SocketChannel) key.channel();
-                ByteBuffer readBuffer = ByteBuffer.allocate(15);
+                ByteBuffer readBuffer = ByteBuffer.allocate(15);//读和写是混在一起的，一套变量来操作的
 
                 int readBytes = sc.read(readBuffer);//把socketChannel中的数据写入 readFBuffer（写入模式）中
                 if (readBytes > 0) {

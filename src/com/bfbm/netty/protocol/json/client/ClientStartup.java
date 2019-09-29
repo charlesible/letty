@@ -15,7 +15,8 @@ public class ClientStartup {
         Channel channel = client.getChannel();
 
         //channel对象可保存在map中，供其它地方发送消息
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1; i++) {
+            //System.out.println("i=" + i);
             RpcRequest request = new RpcRequest();
             request.setId(UUID.randomUUID().toString());
             request.setData("client.message");

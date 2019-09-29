@@ -1,9 +1,6 @@
 package com.bfbm.netty.protocol.json.client;
 
-import com.bfbm.netty.protocol.json.protocol.RpcDecoder;
-import com.bfbm.netty.protocol.json.protocol.RpcEncoder;
-import com.bfbm.netty.protocol.json.protocol.RpcRequest;
-import com.bfbm.netty.protocol.json.protocol.RpcResponse;
+import com.bfbm.netty.protocol.json.protocol.*;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -33,8 +30,9 @@ public class NettyClient {
                     public void initChannel(SocketChannel ch) throws Exception {
                         System.out.println("正在连接中...");
                         ChannelPipeline pipeline = ch.pipeline();
+                        //pipeline.addLast(new RpcEncoder(RpcRequest.class)); //编码request
                         pipeline.addLast(new RpcEncoder(RpcRequest.class)); //编码request
-                        pipeline.addLast(new RpcDecoder(RpcResponse.class)); //解码response
+                        pipeline.addLast(new RpcDecoderByLengthField(RpcResponse.class)); //解码response
                         pipeline.addLast(new ClientHandler()); //客户端处理类
 
                     }

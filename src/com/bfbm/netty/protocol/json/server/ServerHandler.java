@@ -4,6 +4,7 @@ import com.bfbm.netty.protocol.json.protocol.RpcRequest;
 import com.bfbm.netty.protocol.json.protocol.RpcResponse;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelHandlerAdapter;
+
 import java.util.UUID;
 
 public class ServerHandler extends ChannelHandlerAdapter {
@@ -37,6 +38,6 @@ public class ServerHandler extends ChannelHandlerAdapter {
     //客户端去和服务端连接成功时触发
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-//        ctx.writeAndFlush("hello client");
+        // ctx.writeAndFlush("hello client");
     }
 }
